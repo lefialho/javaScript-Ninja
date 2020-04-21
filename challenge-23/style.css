@@ -1,136 +1,153 @@
 * {
-      box-sizing: border-box;
-    }
+  box-sizing: border-box;
+}
 
-    .calculator {
-      border: 1px solid #ccc;
-      background: #f5f5f5;
-      padding: 1rem;
-      max-width: 15rem;
-      border-radius: 0.25rem;
-      box-shadow: 2px 2px 4px rgba(0, 0, 0, .1),
-                  4px 4px 6px rgba(0, 0, 0, .1);
-    }
+html {
+  font-size: 10px;
+}
 
-    .logo {
-      display: block;
-      font-size: 0.875rem;
-      font-family: sans-serif;
-      color: darkgrey;
-      font-weight: bold;
-      margin-bottom: 1rem;
-      text-align: center;
-    }
+body {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.3rem;
+}
 
-    .input {
-      display: block;
-      width: 100%;
-      padding: 0.25rem;
-      border: 1px solid #ccc;
-      margin-bottom: 0.5rem;
-      outline: none;
-    }
+.calculator {
+  border: 1px solid #ccc;
+  background: #f5f5f5;
+  padding: 1.6rem;
+  max-width: 25rem;
+  border-radius: 0.25rem;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, .1),
+    4px 4px 6px rgba(0, 0, 0, .1);
+}
 
-    .number-buttons {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      grid-template-areas: "ce result . ."
-                           "one two three plus"
-                           "four five six minus"
-                           "seven eight nine multiplicator"
-                           ". zero . divisor";
-    }
+.logo {
+  color: darkgrey;
+  display: block;
+  font-size: 1.6rem;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-bottom: 1rem;
+  text-align: center;
+}
 
-    .button:nth-child(5), .button:nth-child(9), .button:nth-child(13) {
-      margin-left: 0.25rem;
-    }
+.input {
+  display: block;
+  width: 100%;
+  padding: 0.25rem;
+  border: 1px solid #ccc;
+  margin-bottom: 1rem;
+  outline: none;
+  border-radius: .2rem;
+}
 
-    button:nth-child(even) {
-      margin-left: 0.25rem;
-    }
+.number-buttons {
+  display: grid;
+  grid-gap: .4rem;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-areas: "ce . . plus"
+    "one two three minus"
+    "four five six multiplicator"
+    "seven eight nine divisor"
+    ". zero point result";
+}
 
-    .buttons .button:last-child {
-      margin: 0;
-    }
+.button {
+  border: none;
+  background: #ececec;
+  width: 5rem;
+  height: 5rem;
+  padding: 1.4rem;
+  outline: none;
+  transition: all .1s ease-in-out;
+  border-radius: .2rem;
+}
 
-    .button {
-      border: none;
-      background: #ececec;
-      padding: 1rem 0.5rem;
-      margin-bottom: 0.25rem;
-      outline: none;
-      transition: all .1s ease-in-out;
-    }
+.button.plus,
+button.minus,
+button.multiplicator,
+button.divisor {
+  background-color: #dadada;
+}
 
-    .button.ce, .button.result, .button.plus, button.minus, button.multiplicator, button.divisor {
-      background: #dadada;
-    }
+.button:focus-within {
+  background: darkgrey;
+  color: white;
+}
 
-    .button:focus-within {
-      background: darkgrey;
-      color: white;
-    }
+button.ce, .button.result {
+  background-color: darkgrey;
+  color: white;
+}
 
-    .button.ce {
-      grid-area: ce;
-    }
+button.ce:focus-within, .button.result:focus-within { 
+  background-color: #7e7e7e;
+}
 
-    .button.result {
-      grid-area: result;
-    }
+.button.ce {
+  grid-area: ce;
+}
 
-    .button.one {
-      grid-area: one;
-    }
+.button.result {
+  grid-area: result;
+}
 
-    .button.two {
-      grid-area: two;
-    }
+.button.point {
+  grid-area: point;
+}
 
-    .button.three {
-      grid-area: three;
-    }
+.button.one {
+  grid-area: one;
+}
 
-    .button.four {
-      grid-area: four;
-    }
+.button.two {
+  grid-area: two;
+}
 
-    .button.five {
-      grid-area: five;
-    }
+.button.three {
+  grid-area: three;
+}
 
-    .button.six {
-      grid-area: six;
-    }
+.button.four {
+  grid-area: four;
+}
 
-    .button.seven {
-      grid-area: seven;
-    }
+.button.five {
+  grid-area: five;
+}
 
-    .button.eight {
-      grid-area: eight;
-    }
+.button.six {
+  grid-area: six;
+}
 
-    .button.nine {
-      grid-area: nine;
-    }
+.button.seven {
+  grid-area: seven;
+}
 
-    .button.zero {
-      grid-area: zero;
-    }
+.button.eight {
+  grid-area: eight;
+}
 
-    .button.plus {
-      grid-area: plus;
-    }
+.button.nine {
+  grid-area: nine;
+}
 
-    .button.minus {
-      grid-area: minus;
-    }
+.button.zero {
+  grid-area: zero;
+}
 
-    .button.multiplicator {
-      grid-area: multiplicator;
-    }
+.button.plus {
+  grid-area: plus;
+}
 
-    .button.divisor {
-      grid-area: divisor;
-    }
+.button.minus {
+  grid-area: minus;
+}
+
+.button.multiplicator {
+  grid-area: multiplicator;
+}
+
+.button.divisor {
+  grid-area: divisor;
+}

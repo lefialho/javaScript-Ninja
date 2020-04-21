@@ -33,10 +33,11 @@
   var $buttonsNumbers = doc.querySelectorAll('[data-js="button-number"]');
   var $buttonsOperations = doc.querySelectorAll('[data-js="button-operation"]');
   var eachButtonOperation = [];
+  var eachButtonNumber = [];
 
   Array.prototype.forEach.call($buttonsNumbers, function (button) {
     button.addEventListener('click', handleClickNumber, false);
-    // console.log(button);
+    eachButtonNumber.push(button.value);
   });
 
   Array.prototype.forEach.call($buttonsOperations, function (button) {
@@ -49,8 +50,8 @@
   $buttonResult.addEventListener('click', handleClickResult, false );
 
   function handleClickNumber() {
+    $visor.value = removeFirstItem($visor.value);
     $visor.value += this.value;
-    // console.log(this.value);
   }
 
   function handleClickOperation() {
@@ -62,9 +63,27 @@
     $visor.value = 0;
   }
 
+  function isFirstItemAnOperation(number) {
+    var numbers = eachButtonNumber;
+    var firstItem = number.split('').shift();
+
+    return numbers.some(function(number){
+      var comparationNumbers = number === firstItem;
+      return comparationNumbers;
+    });
+  }
+
+  function removeFirstItem(number) {
+    if(isFirstItemAnOperation(number)) {
+      return number.split('0').join('');
+    }
+    return number;
+  }
+
   function isLastItemAnOperation(number) {
     var operations = eachButtonOperation;
     var lastItem = number.split('').pop();
+
     return operations.some(function(operator){
       return operator === lastItem;
     });
@@ -80,7 +99,7 @@
 
   function handleClickResult() {
     $visor.value = removeLastItemIfAnOperator($visor.value);
-    var allValues = $visor.value.match(/\d+[+*/-]?/g);
+    var allValues = $visor.value.match(/[.\d]+[+*/-]?/g);
     $visor.value = allValues.reduce(function(accumulated, actual) {
       var firstValue = accumulated.slice(0, -1);
       var operator = accumulated.split('').pop();
@@ -97,11 +116,8 @@
         case '/':
           return (Number(firstValue) / Number(lastvalue)) + lastOpetator;
       }
-      // console.log(firstValue, operator);
-      // console.log(allValues);
-      // console.log(accumulated.slice(0, -1));
+      
     });
   }
-
 
 })(window, document);
