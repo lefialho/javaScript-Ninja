@@ -16,7 +16,6 @@
   const $buttonsNumbers = document.querySelectorAll('[data-js="button-number"]');
   const $buttonsOperations = document.querySelectorAll('[data-js="button-operation"]');
   const $buttonCE = document.querySelector('[data-js="button-ce"]');
-  const $buttonDot = document.querySelector('[data-js="button-dot"]');
   const $buttonEqual = document.querySelector('[data-js="button-equal"]');
 
   function initialize() {
@@ -32,10 +31,10 @@
     });
     $buttonCE.addEventListener('click', handleClickCE, false);
     $buttonEqual.addEventListener('click', handleClickEqual, false);
-    $buttonDot.addEventListener('click', handleClickDot, false);
   }
 
   function handleClickNumber() {
+    $visor.value = removeFirstItem($visor.value);
     $visor.value += this.value;
   }
 
@@ -48,9 +47,20 @@
     $visor.value = 0;
   }
 
-  function handleClickDot() {
-    $visor.value = removeLastItemIfItIsAnOperator($visor.value);
-    $visor.value += $buttonDot.value;
+  function isFirstItemAnOperation(number) {
+    var numbers = getNumbers();
+    var firstItem = number.split('').shift();
+
+    return numbers.some(function(number){
+      return number === firstItem;
+    });
+  }
+
+  function removeFirstItem(number) {
+    if(isFirstItemAnOperation(number)) {
+      return number.split('0').join('');
+    }
+    return number;
   }
 
   function isLastItemAnOperation(number) {
@@ -67,6 +77,12 @@
     }));
   }
 
+  function getNumbers() {
+    return Array.prototype.map.call($buttonsNumbers, (function(button) {
+      return button.value;
+    }));
+  }
+  
   function removeLastItemIfItIsAnOperator(string) {
     if (isLastItemAnOperation(string))
       return string.slice(0, -1);
@@ -80,7 +96,7 @@
   }
 
   function getRegexOperations() {
-    return new RegExp('\\d+[' + getOperations().join('') + ']?', 'g');
+    return new RegExp('[.\\d]+[' + getOperations().join('') + ']?', 'g');
   }
 
   function calculateAllValues(accumulated, actual) {
