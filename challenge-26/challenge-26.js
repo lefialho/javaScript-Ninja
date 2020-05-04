@@ -44,7 +44,7 @@
   };
 
   DOM.prototype.get = function get() {
-    return this.element
+    return Array.from(this.element)
   };
 
   var $a = new DOM('[data-js="link"]');
@@ -56,6 +56,5 @@
   });
 
   console.log('Elementos selecionados:', $a.get());
-  console.log('$a é filho de body?', $a.get()[0].parentNode === document.body);
-
+  console.log('$a é filho de body?', $a.get()[1].parentNode !== document.body);
 })();
